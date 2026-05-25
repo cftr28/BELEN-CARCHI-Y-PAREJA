@@ -110,39 +110,46 @@
 
         /* --- SECCIÓN 1: CABECERA --- */
        /* --- SECCIÓN 1: CABECERA (ACTUALIZADA CON FOTO DE FONDO) --- */
-        .header-section {
-            position: relative; /* Permite posicionar elementos encima */
-            text-align: center;
-            width: 100%;
-            box-sizing: border-box;
-            min-height: 75vh; /* Ajusta la altura de la cabecera en pantallas grandes */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-        }
+       /* --- SECCIÓN 1: CABECERA OPTIMIZADA CON PROPORCIÓN DE IMAGEN --- */
+.header-section {
+    position: relative;
+    width: 100%;
+    /* Usa la proporción nativa de la foto (16:9) para que nunca se deforme ni corte */
+    aspect-ratio: 16 / 9; 
+    max-height: 85vh; /* Evita que en pantallas gigantes verticales se vuelva inmensa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #f1eeee;
+}
 
-        .header-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Hace que la imagen llene el espacio sin deformarse */
-            z-index: 1;
-            /* Opcional: Descomenta la línea de abajo si quieres oscurecer un poco la foto para que el texto blanco resalte más */
-            /* filter: brightness(0.85); */
-        }
+.header-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 'contain' asegura que la foto se enmarque completa. 
+       Si prefieres que rellene sin perder la proporción usa 'cover' combinada con el aspect-ratio */
+    object-fit: cover; 
+    object-position: center 30%; /* Centra verticalmente el enfoque en los rostros */
+    z-index: 1;
+}
 
-        .header-content {
-            position: relative;
-            z-index: 2; /* Se posiciona por encima de la imagen de fondo */
-            padding: 60px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+.header-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el reproductor arriba y textos abajo si los hay */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.2) 100%); /* Capa sutil para legibilidad */
+}
 
         /* Cambiamos el color de los textos a blanco para que contrasten con la foto de fondo, similar a tu referencia */
         .cursive { 
@@ -159,9 +166,9 @@
 .nombres-tit { 
     font-family: 'Bodoni Moda', serif; 
     /* Tamaño ultra-microscópico */
-    font-size: clamp(0.5rem, 1.5vw, 0.75rem); 
+    font-size: clamp(0.2rem, 0.7vw, 0.25rem); 
     margin: 3px 0 0 0; /* Margen mínimo para que no quede flotando */
-    font-weight: 100; 
+    font-weight: 20; 
     color: #000000; 
     position: relative; 
     animation: revealNames 2.5s cubic-bezier(0.2, 0, 0.2, 1) forwards;
@@ -693,269 +700,257 @@
 </head>
 <body>
 
+    <audio id="musica-boda" src="musica.mp3" preload="auto" loop></audio>
+
     <div id="preloader">
         <div class="loader-names">Sofía & Alejandro</div>
         <div class="loader-line"></div>
     </div>
 
- <!-- --- SECCIÓN 1: CABECERA (CORREGIDA) --- -->
     <div class="header-section">
-        <!-- Imagen de fondo -->
         <img src="foto200.png" class="header-bg" alt="Sofía y Alejandro">
-        
-        <!-- El contenido ahora está DENTRO de la sección para heredar la posición absoluta -->
-       
     </div>
-     <div class="header-content">
-             <p class="cursive">¡Nos casamos!</p>
-            <h1 class="nombres-tit">Sofía & Alejandro</h1>
-           
-       
+    
+    <div class="header-content">
+        <div class="music-player" id="boton-musica">
+            <div class="play-button"></div>
         </div>
-         <div class="music-player" id="boton-musica">
-                <div class="play-button"></div>
-            </div>
-    <div class="escena-invitacion">
-        <div class="sobre-container">
-            <div class="iniciales-dd">S A</div>
-            <img src="sobre.png" class="sobre-img" alt="Sobre">
-            <img src="sello.png" class="sello-lacre" alt="Sello">
-            <div class="tarjeta-blanca">
-                <p class="lema">HEMOS DECIDIDO DECIR SÍ PARA TODA LA VIDA</p>
-                <h2 class="nombre-tarjeta">Sofía & Alejandro</h2>
-                <p class="honor">Tenemos el honor de invitarlos a celebrar nuestro matrimonio el día</p>
-                <div class="fecha-wrap">
-                    <span class="mes-dia">SÁBADO</span>
-                    <span class="num-grande">30</span>
-                    <span class="mes-dia">AGOSTO</span>
+        
+        <div class="escena-invitacion">
+            <div class="sobre-container">
+                <div class="iniciales-dd">S A</div>
+                <img src="sobre.png" class="sobre-img" alt="Sobre">
+                <img src="sello.png" class="sello-lacre" alt="Sello">
+                <div class="tarjeta-blanca">
+                    <p class="lema">HEMOS DECIDIDO DECIR SÍ PARA TODA LA VIDA</p>
+                    <h2 class="nombre-tarjeta">Sofía & Alejandro</h2>
+                    <p class="honor">Tenemos el honor de invitarlos a celebrar nuestro matrimonio el día</p>
+                    <div class="fecha-wrap">
+                        <span class="mes-dia">SÁBADO</span>
+                        <span class="num-grande">30</span>
+                        <span class="mes-dia">AGOSTO</span>
+                    </div>
+                    <p class="year">2026</p>
                 </div>
-                <p class="year">2026</p>
             </div>
         </div>
-    </div>
 
-    <div class="seccion-eventos-texturizada reveal">
-        <div class="layout-arcos">
-            <div class="tarjeta-arco arco-ceremonia">
-                <img src="ceremonia.png" alt="Ceremonia" class="icon-img">
-                <h3 class="cursive-sub">Ceremonia Religiosa</h3>
-                <p class="lugar-tit">Catedral</p>
-                <p class="direccion">Loja, Ecuador</p>
-                <p class="hora">14:30 hs</p>
-                <a href="https://maps.app.goo.gl/N4XWW1wDSPxqhvGC7" target="_blank" class="btn-outline">COMO LLEGAR</a>
+        <div class="seccion-eventos-texturizada reveal">
+            <div class="layout-arcos">
+                <div class="tarjeta-arco arco-ceremonia">
+                    <img src="ceremonia.png" alt="Ceremonia" class="icon-img">
+                    <h3 class="cursive-sub">Ceremonia Religiosa</h3>
+                    <p class="lugar-tit">Catedral</p>
+                    <p class="direccion">Loja, Ecuador</p>
+                    <p class="hora">14:30 hs</p>
+                    <a href="https://maps.app.goo.gl/N4XWW1wDSPxqhvGC7" target="_blank" class="btn-outline">COMO LLEGAR</a>
+                </div>
+                <div class="tarjeta-arco arco-fiesta">
+                    <img src="fiesta.png" alt="Fiesta" class="icon-img">
+                    <h3 class="cursive-sub">Recepción</h3>
+                    <p class="lugar-tit">Hotel Sonesta</p>
+                    <p class="direccion">Loja, Ecuador</p>
+                    <p class="hora">19:30 hs</p>
+                    <a href="https://maps.app.goo.gl/VMB6izJbdL8xDzpLA" target="_blank" class="btn-outline">COMO LLEGAR</a>
+                </div>
             </div>
-            <div class="tarjeta-arco arco-fiesta">
-                <img src="fiesta.png" alt="Fiesta" class="icon-img">
-                <h3 class="cursive-sub">Recepción</h3>
-                <p class="lugar-tit">Hotel Sonesta</p>
-                <p class="direccion">Loja, Ecuador</p>
-                <p class="hora">19:30 hs</p>
-                <a href="https://maps.app.goo.gl/VMB6izJbdL8xDzpLA" target="_blank" class="btn-outline">COMO LLEGAR</a>
+        </div>
+
+        <div class="seccion-itinerario reveal">
+            <h2 class="itinerario-titulo">Itinerario</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Ceremonia Religiosa</p></div>
+                    <div class="timeline-time">14:30 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Recepción</p></div>
+                    <div class="timeline-time">19:30 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Entrada de los Novios</p></div>
+                    <div class="timeline-time">20:15 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Brindis</p></div>
+                    <div class="timeline-time">20:30 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Sesión de Fotos</p></div>
+                    <div class="timeline-time">20:45 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Cena</p></div>
+                    <div class="timeline-time">21:15 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">¡A Bailar!</p></div>
+                    <div class="timeline-time">21:55 hs</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content"><p class="timeline-desc">Fin de la Boda</p></div>
+                    <div class="timeline-time">01:00 hs</div>
+                </div>
             </div>
         </div>
-    </div>
 
-  <div class="seccion-itinerario reveal">
-    <h2 class="itinerario-titulo">Itinerario</h2>
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Ceremonia Religiosa</p></div>
-            <div class="timeline-time">14:30 hs</div>
+        <div class="seccion-regalos reveal">
+            <div class="tarjeta-regalo-cafe">
+                <h2 class="regalo-cursive-top">Regalo</h2>
+                <img src="regalo.png" alt="Regalo" class="icon-regalo-line">
+                
+                <h4 class="titulo-datos-white">CUENTA</h4>
+                <p>AHORROS - BANCO PICHINCHA</p>
+                <p>NÚMERO DE CUENTA: </p>
+                <p>CÉDULA DE IDENTIDAD: </p>
+                <p>NOMBRE:  </p>
+                <p>EMAIL:</p>
+
+                <h4 class="titulo-datos-white">LLUVIA DE SOBRES</h4>
+                <p>Tu presencia es nuestro mejor regalo, pero si deseas darnos un detalle, recibiremos tu sobre cerrado el día de la fiesta.</p>
+            </div>
+
+            <div class="tarjeta-dress-blanca reveal">
+                <h3>Dress code</h3>
+                <img src="dress.png" alt="Dress Code" class="icon-dress" style="width: 80px; opacity: 0.7; margin-bottom: 10px;">
+                <p class="tipo-vestimenta">FORMAL</p>
+                <div style="width: 40px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.2;"></div>
+                
+                <div style="margin-bottom: 20px;">
+                    <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">MUJERES</p>
+                    <p style="font-size: 0.6rem; line-height: 1.4; color: #5d4936; margin-bottom: 10px;">
+                        Vestido largo. <br>
+                        Tacones.
+                    </p>
+                    
+                    <p style="font-size: 0.55rem; letter-spacing: 1px; color: #8d7a64; margin-bottom: 8px;">PALETA DE COLORES:</p>
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 10px;">
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #7b7d41;"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #a85832;"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #c47b4d;"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #853b47;"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #55604e;"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #927a5d;"></div>
+                    </div>
+                    <p style="font-size: 0.75rem; color: #a69683; font-style: italic;">* Por favor evitar blanco y beige</p>
+                </div>
+
+                <div style="width: 40px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.2;"></div>
+
+                <div style="margin-bottom: 20px;">
+                    <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">HOMBRES</p>
+                    <p style="font-size: 0.6rem; line-height: 1.4; color: #5d4936; margin-bottom: 10px;">
+                        Traje formal completo <b>negro</b>. <br>
+                        Camisa blanca, corbata o corbatín. <br>
+                        Zapatos formales (no deportivos).
+                    </p>
+                    <p style="font-size: 0.55rem; letter-spacing: 1px; color: #8d7a64; margin-bottom: 8px;">PALETA DE COLORES:</p>
+                    <div style="display: flex; justify-content: center; gap: 8px;">
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #000000; border: 1px solid rgba(0,0,0,0.1);"></div>
+                        <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #ffffff; border: 1px solid #ddd;"></div>
+                    </div>
+                    <p style="font-size: 0.75rem; color: #a69683; font-style: italic;">* Por favor respetar el código de vestimenta.</p>
+                </div>
+
+                <div style="border-top: 1px solid rgba(141, 122, 100, 0.1); padding-top: 15px; margin-top: 10px;">
+                    <p style="font-size: 0.68rem; line-height: 1.4; color: #8d7a64; font-style: italic; margin: 0;">
+                        "Hemos planeado una velada con una atmósfera de adultos, por lo que les agradecemos de corazón su comprensión al no incluir niños en esta ocasión."
+                    </p>
+                </div>
+            </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Recepción</p></div>
-            <div class="timeline-time">19:30 hs</div>
+        <div class="seccion-interactiva reveal" style="background-image: url('fondo2.png'); background-size: cover; background-position: center; padding: 60px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+            <div class="tarjeta-interactiva" style="width: 310px; background-color: rgb(255, 255, 255); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <img src="camara.png" alt="Fotos" class="icon-small" style="width: 100px; opacity: 0.6; margin-bottom: 20px;"> 
+                <h3 style="margin-bottom: 15px; color: #8d7a64; font-size: 1.5rem;">Nuestras Fotos</h3>
+                <p style="margin-bottom: 25px; color: #666; line-height: 1.6;">Queremos ver la boda a través de tus ojos. Comparte tus momentos favoritos con nosotros.</p>
+                <a href="" target="_blank" class="btn-interactivo" style="background-color: #8d7a64; color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease;">SUBIR FOTOS</a>
+            </div>
+
+            <div class="tarjeta-interactiva" style="width: 310px; background-color: rgb(255, 255, 255); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                <img src="nota.png" alt="Música" class="icon-small" style="width: 70px; opacity: 0.6; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 15px; color: #8d7a64; font-size: 1.5rem;">¿Qué canción no puede faltar?</h3>
+                <p style="margin-bottom: 25px; color: #666; line-height: 1.6;">Ayúdanos a armar la playlist perfecta para celebrar juntos.</p>
+                <input type="text" id="cancion-input" class="input-musica" placeholder="Canción y artista..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
+                <button onclick="sugerirCancion()" class="btn-interactivo" id="btn-cancion" style="width: 100%; background-color: #8d7a64; color: white; padding: 12px 24px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease;">SUGERIR CANCIÓN</button>
+            </div>
         </div>
 
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Entrada de los Novios</p></div>
-            <div class="timeline-time">20:15 hs</div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Brindis</p></div>
-            <div class="timeline-time">20:30 hs</div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Sesión de Fotos</p></div>
-            <div class="timeline-time">20:45 hs</div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Cena</p></div>
-            <div class="timeline-time">21:15 hs</div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">¡A Bailar!</p></div>
-            <div class="timeline-time">21:55 hs</div>
-        </div>
-
-        <div class="timeline-item">
-            <div class="timeline-dot"></div>
-            <div class="timeline-content"><p class="timeline-desc">Fin de la Boda</p></div>
-            <div class="timeline-time">01:00 hs</div>
-        </div>
-    </div>
-</div>
-
-    <div class="seccion-regalos reveal">
-      <div class="tarjeta-regalo-cafe">
-    <h2 class="regalo-cursive-top">Regalo</h2>
-    <img src="regalo.png" alt="Regalo" class="icon-regalo-line">
-    
-    <h4 class="titulo-datos-white">CUENTA</h4>
-    <p>AHORROS - BANCO PICHINCHA</p>
-    <p>NÚMERO DE CUENTA: /p>
-    <p>CÉDULA DE IDENTIDAD: </p>
-    <p>NOMBRE:  </p>
-    <p>EMAIL:</p>
-
-    <h4 class="titulo-datos-white">LLUVIA DE SOBRES</h4>
-    <p>Tu presencia es nuestro mejor regalo, pero si deseas darnos un detalle, recibiremos tu sobre cerrado el día de la fiesta.</p>
-</div>
-
-<div class="tarjeta-dress-blanca reveal">
-    <h3>Dress code</h3>
-    <img src="dress.png" alt="Dress Code" class="icon-dress" style="width: 80px; opacity: 0.7; margin-bottom: 10px;">
-    <p class="tipo-vestimenta">FORMAL</p>
-  <div style="width: 40px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.2;"></div>
-    <div style="margin-bottom: 20px;">
-        <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">MUJERES</p>
-        <p style="font-size: 0.6rem; line-height: 1.4; color: #5d4936; margin-bottom: 10px;">
-            Vestido largo. <br>
-            Tacones.
-        </p>
-        
-        <p style="font-size: 0.55rem; letter-spacing: 1px; color: #8d7a64; margin-bottom: 8px;">PALETA DE COLORES:</p>
-        <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 10px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #7b7d41;"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #a85832;"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #c47b4d;"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #853b47;"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #55604e;"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #927a5d;"></div>
-        </div>
-        <p style="font-size: 0.75rem; color: #a69683; font-style: italic;">* Por favor evitar blanco y beige</p>
-    </div>
-
-    <div style="width: 40px; height: 1px; background: #8d7a64; margin: 15px auto; opacity: 0.2;"></div>
-
-    <div style="margin-bottom: 20px;">
-        <p style="font-size: 0.65rem; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px;">HOMBRES</p>
-        <p style="font-size: 0.6rem; line-height: 1.4; color: #5d4936; margin-bottom: 10px;">
-            Traje formal completo <b>negro</b>. <br>
-            Camisa blanca, corbata o corbatín. <br>
-            Zapatos formales (no deportivos).
-        </p>
-        <p style="font-size: 0.55rem; letter-spacing: 1px; color: #8d7a64; margin-bottom: 8px;">PALETA DE COLORES:</p>
-        <div style="display: flex; justify-content: center; gap: 8px;">
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #000000; border: 1px solid rgba(0,0,0,0.1);"></div>
-            <div style="width: 20px; height: 20px; border-radius: 50%; background-color: #ffffff; border: 1px solid #ddd;"></div>
-        </div>
-        <p style="font-size: 0.75rem; color: #a69683; font-style: italic;">* Por favor respetar el código de vestimenta.</p>
-    </div>
-
-    <div style="border-top: 1px solid rgba(141, 122, 100, 0.1); padding-top: 15px; margin-top: 10px;">
-        <p style="font-size: 0.68rem; line-height: 1.4; color: #8d7a64; font-style: italic; margin: 0;">
-            "Hemos planeado una velada con una atmósfera de adultos, por lo que les agradecemos de corazón su comprensión al no incluir niños en esta ocasión."
-        </p>
-    </div>
-</div>
-
-</div>
-    </div>
-
- <div class="seccion-interactiva reveal" style="background-image: url('fondo2.png'); background-size: cover; background-position: center; padding: 60px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
-    
-    <div class="tarjeta-interactiva" style="width: 310px; background-color: rgb(255, 255, 255); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-        <img src="camara.png" alt="Fotos" class="icon-small" style="width: 100px; opacity: 0.6; margin-bottom: 20px;"> 
-        <h3 style="margin-bottom: 15px; color: #8d7a64; font-size: 1.5rem;">Nuestras Fotos</h3>
-        <p style="margin-bottom: 25px; color: #666; line-height: 1.6;">Queremos ver la boda a través de tus ojos. Comparte tus momentos favoritos con nosotros.</p>
-        <a href="" target="_blank" class="btn-interactivo" style="background-color: #8d7a64; color: white; padding: 12px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: background-color 0.3s ease;">SUBIR FOTOS</a>
-    </div>
-
-    <div class="tarjeta-interactiva" style="width: 310px; background-color: rgb(255, 255, 255); padding: 30px; border-radius: 15px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
-        <img src="nota.png" alt="Música" class="icon-small" style="width: 70px; opacity: 0.6; margin-bottom: 20px;">
-        <h3 style="margin-bottom: 15px; color: #8d7a64; font-size: 1.5rem;">¿Qué canción no puede faltar?</h3>
-        <p style="margin-bottom: 25px; color: #666; line-height: 1.6;">Ayúdanos a armar la playlist perfecta para celebrar juntos.</p>
-        <input type="text" id="cancion-input" class="input-musica" placeholder="Canción y artista..." style="width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box;">
-        <button onclick="sugerirCancion()" class="btn-interactivo" style="width: 100%; background-color: #8d7a64; color: white; padding: 12px 24px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: background-color 0.3s ease;">SUGERIR CANCIÓN</button>
-    </div>
-
-</div>
-    <div class="seccion-galeria" style="width: 100%; padding: 60px 0; background-color: #ffffff; text-align: center;">
-    <h2 class="itinerario-titulo" style="margin-bottom: 40px; font-family: 'Alex Brush', cursive; font-size: 2.2rem; color: #8d7a64;">Nuestra Historia</h2>
-    
-    <div class="galeria-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 1000px; margin: 0 auto; padding: 0 20px;">
-        
-        <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <img src="foto1.png" alt="Nuestra foto 1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
-
-        <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <img src="foto2.png" alt="Nuestra foto 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
-
-        <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
-            <img src="foto3.png" alt="Nuestra foto 3" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-        </div>
-
-    </div>
-</div>
-
-
-    <div class="seccion-contador reveal">
-    <div class="capsula-tiempo">
-        <h3 class="preparate">¡PREPÁRATE!</h3>
-        <p class="nos-vemos">NOS VEMOS DENTRO DE</p>
-        <div class="timer-grid">
-            <div class="timer-item"><span id="days">00</span><div class="timer-label">Días</div></div>
-            <div class="timer-item"><span id="hours">00</span><div class="timer-label">Horas</div></div>
-            <div class="timer-item"><span id="minutes">00</span><div class="timer-label">Minutos</div></div>
-            <div class="timer-item"><span id="seconds">00</span><div class="timer-label">Segundos</div></div>
-        </div>
-    </div>
-
- <div class="confirmacion-texto">
-    <h2>Confirmación de asistencia</h2>
-    <p>Para nosotros es muy importante que confirmes tu asistencia, agradecemos de corazón su comprensión al no incluir niños en esta ocasión.</p>
-    
-    <div id="contenedor-confirmar">
-        <button onclick="mostrarFormulario()" class="btn-blanco-outline" id="btn-principal" style="background: transparent; cursor: pointer; width: auto;">Confirmar aquí</button>
-        
-        <div id="form-asistencia" style="display: none; margin-top: 20px;">
-            <input type="text" id="nombres-asistentes" class="input-musica" 
-                   placeholder="Nombres de los asistentes..." 
-                   style="background: white; color: #5d4936; border: none; width: 90%; max-width: 300px; margin-bottom: 15px; padding: 12px; border-radius: 8px;">
+        <div class="seccion-galeria" style="width: 100%; padding: 60px 0; background-color: #ffffff; text-align: center;">
+            <h2 class="itinerario-titulo" style="margin-bottom: 40px; font-family: 'Alex Brush', cursive; font-size: 2.2rem; color: #8d7a64;">Nuestra Historia</h2>
             
-            <button onclick="enviarAsistencia()" class="btn-blanco-outline" 
-                    style="background: #fdfaf5; color: #8d7a64; cursor: pointer; display: block; margin: 0 auto; width: auto;">
-                ENVIAR CONFIRMACIÓN
-            </button>
+            <div class="galeria-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; max-width: 1000px; margin: 0 auto; padding: 0 20px;">
+                <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <img src="foto1.png" alt="Nuestra foto 1" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <img src="foto2.png" alt="Nuestra foto 2" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+                <div class="foto-item reveal" style="width: 280px; height: 280px; overflow: hidden; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <img src="foto3.png" alt="Nuestra foto 3" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</div>
 
-    <div class="seccion-final reveal">
-        <div class="divisor-elegante"></div>
-        <p class="texto-final">Te esperamos</p>
-        <h2 class="firmas-final">Sofía & Alejandro</h2>
-        <p class="agradecimiento">¡Gracias por acompañarnos!</p>
-    </div>
+        <div class="seccion-contador reveal">
+            <div class="capsula-tiempo">
+                <h3 class="preparate">¡PREPÁRATE!</h3>
+                <p class="nos-vemos">NOS VEMOS DENTRO DE</p>
+                <div class="timer-grid">
+                    <div class="timer-item"><span id="days">00</span><div class="timer-label">Días</div></div>
+                    <div class="timer-item"><span id="hours">00</span><div class="timer-label">Horas</div></div>
+                    <div class="timer-item"><span id="minutes">00</span><div class="timer-label">Minutos</div></div>
+                    <div class="timer-item"><span id="seconds">00</span><div class="timer-label">Segundos</div></div>
+                </div>
+            </div>
 
-    <div class="creditos">
-        realizado por Invitaciones Digitales Loja / 0960934663
+            <div class="confirmacion-texto">
+                <h2>Confirmación de asistencia</h2>
+                <p>Para nosotros es muy importante que confirmes tu asistencia, agradecemos de corazón su comprensión al no incluir niños en esta ocasión.</p>
+                
+                <div id="contenedor-confirmar">
+                    <button onclick="mostrarFormulario()" class="btn-blanco-outline" id="btn-principal" style="background: transparent; cursor: pointer; width: auto;">Confirmar aquí</button>
+                    
+                    <div id="form-asistencia" style="display: none; margin-top: 20px;">
+                        <input type="text" id="nombres-asistentes" class="input-musica" 
+                               placeholder="Nombres de los asistentes..." 
+                               style="background: white; color: #5d4936; border: none; width: 90%; max-width: 300px; margin-bottom: 15px; padding: 12px; border-radius: 8px;">
+                        
+                        <button onclick="enviarAsistencia()" class="btn-blanco-outline" id="btn-enviar-asistencia"
+                                style="background: #fdfaf5; color: #8d7a64; cursor: pointer; display: block; margin: 0 auto; width: auto;">
+                            ENVIAR CONFIRMACIÓN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="seccion-final reveal">
+            <div class="divisor-elegante"></div>
+            <p class="texto-final">Te esperamos</p>
+            <h2 class="firmas-final">Sofía & Alejandro</h2>
+            <p class="agradecimiento">¡Gracias por acompañarnos!</p>
+        </div>
+
+        <div class="creditos">
+            realizado por Invitaciones Digitales Loja / 0960934663
+        </div>
     </div>
 
     <script>
@@ -963,8 +958,10 @@
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const loader = document.getElementById('preloader');
-                loader.style.opacity = '0';
-                loader.style.visibility = 'hidden';
+                if(loader) {
+                    loader.style.opacity = '0';
+                    loader.style.visibility = 'hidden';
+                }
             }, 1000); 
         });
 
@@ -979,68 +976,70 @@
             });
         });
 
-        // MÚSICA
+        // 2. MÚSICA CORREGIDA (EVITA ERRORES DE AUTOPLAY)
         const musica = document.getElementById("musica-boda");
         const btnMusica = document.getElementById("boton-musica");
-        btnMusica.addEventListener("click", () => {
-            if (musica.paused) {
-                musica.play();
-                btnMusica.classList.add("music-playing");
-            } else {
-                musica.pause();
-                btnMusica.classList.remove("music-playing");
+        
+        if (btnMusica && musica) {
+            btnMusica.addEventListener("click", () => {
+                if (musica.paused) {
+                    musica.play()
+                        .then(() => {
+                            btnMusica.classList.add("music-playing");
+                        })
+                        .catch(error => {
+                            console.error("El navegador bloqueó la reproducción automática:", error);
+                        });
+                } else {
+                    musica.pause();
+                    btnMusica.classList.remove("music-playing");
+                }
+            });
+        }
+
+        // SUGERIR CANCIÓN - NUEVA LÓGICA PARA GOOGLE SHEETS
+        async function sugerirCancion() {
+            const input = document.getElementById("cancion-input");
+            const cancion = input.value.trim();
+            const btn = document.getElementById("btn-cancion");
+            
+            if (cancion === "") {
+                alert("Por favor, escribe el nombre de una canción.");
+                return;
             }
-        });
 
-        // WHATSAPP CANCIÓN
-       // NUEVA LÓGICA PARA GOOGLE SHEETS
-async function sugerirCancion() {
-    const input = document.getElementById("cancion-input");
-    const cancion = input.value.trim();
-    const btn = document.querySelector(".tarjeta-interactiva .btn-interactivo");
-    
-    // 1. Validar que no esté vacío
-    if (cancion === "") {
-        alert("Por favor, escribe el nombre de una canción.");
-        return;
-    }
+            const url = "https://script.google.com/macros/s/AKfycbxu7RYcGJ7itnZvG9hCeorRtLpB1d-q7rkuB8-k7aLJws25PtW79rOWy53oSPMrG_YJjg/exec"; 
 
-    // URL que copiaste de Google Apps Script
-    //const url = "https://script.google.com/macros/s/AKfycbxu7RYcGJ7itnZvG9hCeorRtLpB1d-q7rkuB8-k7aLJws25PtW79rOWy53oSPMrG_YJjg/exec"; 
+            try {
+                btn.innerText = "ENVIANDO...";
+                btn.style.opacity = "0.5";
+                btn.disabled = true;
 
-    try {
-        // Cambiar estado del botón mientras envía
-        btn.innerText = "ENVIANDO...";
-        btn.style.opacity = "0.5";
-        btn.disabled = true;
+                await fetch(url, {
+                    method: 'POST',
+                    mode: 'no-cors', 
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cancion: cancion })
+                });
 
-        // 2. Enviar los datos
-        await fetch(url, {
-            method: 'POST',
-            mode: 'no-cors', // Necesario para Google Scripts
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ cancion: cancion })
-        });
+                alert("¡Gracias! Tu canción ha sido añadida a la lista.");
+                input.value = ""; 
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Hubo un problema al guardar. Inténtalo de nuevo.");
+            } finally {
+                btn.innerText = "SUGERIR CANCIÓN";
+                btn.style.opacity = "1";
+                btn.disabled = false;
+            }
+        }
 
-        // 3. Éxito
-        alert("¡Gracias! Tu canción ha sido añadida a la lista.");
-        input.value = ""; // Limpiar el campo
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Hubo un problema al guardar. Inténtalo de nuevo.");
-    } finally {
-        // Restaurar botón
-        btn.innerText = "SUGERIR CANCIÓN";
-        btn.style.opacity = "1";
-        btn.disabled = false;
-    }
-}
-
-        // CONTADOR
-        const weddingDate = new Date("Aug 22, 2026 17:30:00").getTime();
+        // CONTADOR (Sincronizado a Sábado 30 de Agosto de 2026, 14:30 hs)
+        const weddingDate = new Date("Aug 30, 2026 14:30:00").getTime();
         const updateCountdown = () => {
             const now = new Date().getTime();
             const distance = weddingDate - now;
+            
             const d = Math.floor(distance / (1000 * 60 * 60 * 24));
             const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -1070,51 +1069,46 @@ async function sugerirCancion() {
         window.addEventListener("scroll", revealOnScroll);
         revealOnScroll();
 
-
         function mostrarFormulario() {
-    // Oculta el botón de "Confirmar aquí" y muestra el cuadro para escribir
-    document.getElementById('btn-principal').style.display = 'none';
-    document.getElementById('form-asistencia').style.display = 'block';
-}
+            document.getElementById('btn-principal').style.display = 'none';
+            document.getElementById('form-asistencia').style.display = 'block';
+        }
 
-async function enviarAsistencia() {
-    const input = document.getElementById("nombres-asistentes");
-    const nombres = input.value.trim();
-    const btn = event.target;
-    
-    // Tu URL de Google Sheets
-    //const urlExcel = "https://script.google.com/macros/s/AKfycbzrJ9SW_bLQhKWanbqta0Y2TK847SN2qxDWW0mpVkwjh2wtRO-68PYkF_ZLT40m4n7g/exec";
+        // ENVIAR ASISTENCIA A GOOGLE SHEETS
+        async function enviarAsistencia() {
+            const input = document.getElementById("nombres-asistentes");
+            const nombres = input.value.trim();
+            const btn = document.getElementById("btn-enviar-asistencia");
+            
+            const urlExcel = "https://script.google.com/macros/s/AKfycbzrJ9SW_bLQhKWanbqta0Y2TK847SN2qxDWW0mpVkwjh2wtRO-68PYkF_ZLT40m4n7g/exec";
 
-    if (nombres === "") {
-        alert("Por favor, ingresa los nombres para confirmar.");
-        return;
-    }
+            if (nombres === "") {
+                alert("Por favor, ingresa los nombres para confirmar.");
+                return;
+            }
 
-    try {
-        btn.innerText = "ENVIANDO...";
-        btn.disabled = true;
+            try {
+                btn.innerText = "ENVIANDO...";
+                btn.disabled = true;
 
-        // Enviar datos a Google Sheets
-        await fetch(urlExcel, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombres: nombres })
-        });
+                await fetch(urlExcel, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombres: nombres })
+                });
 
-        alert("¡Gracias! Tu asistencia ha sido registrada en nuestra lista.");
-        
-        // Opcional: Limpiar y cerrar formulario
-        input.value = "";
-        document.getElementById('form-asistencia').innerHTML = "<p style='color: white; font-weight: bold;'>¡Confirmación Exitosa!</p>";
-        
-    } catch (error) {
-        console.error("Error:", error);
-        alert("Hubo un problema al guardar. Por favor, intenta de nuevo.");
-        btn.innerText = "ENVIAR CONFIRMACIÓN";
-        btn.disabled = false;
-    }
-}
+                alert("¡Gracias! Tu asistencia ha sido registrada en nuestra lista.");
+                input.value = "";
+                document.getElementById('form-asistencia').innerHTML = "<p style='color: white; font-weight: bold;'>¡Confirmación Exitosa!</p>";
+                
+            } catch (error) {
+                console.error("Error:", error);
+                alert("Hubo un problema al guardar. Por favor, intenta de nuevo.");
+                btn.innerText = "ENVIAR CONFIRMACIÓN";
+                btn.disabled = false;
+            }
+        }
     </script>
 </body>
 </html>
