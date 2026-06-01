@@ -857,29 +857,16 @@
     opacity: 1;
 }
 .seccion-foto-destacada {
-    background-image: url('fondo3.png');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* Opcional: crea efecto de profundidad al hacer scroll */
-    padding: 60px 20px; /* Espacio interno para que el fondo se vea alrededor */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
 }
 
-.contenedor-foto-grande {
-    width: 90%;
-    max-width: 600px;
-    border-radius: 15px;
-    box-shadow: none; /* Si también quieres quitar la sombra */
-    overflow: hidden;
-    background: transparent; /* Fuerza a que sea transparente */
-}
 .foto-principal {
     width: 100%;
-    height: 100%;
+    height: auto;
+    display: block;
     object-fit: cover;
-    object-position: center;
 }
 /* Efecto suave al hacer hover */
 .foto-principal:hover {
