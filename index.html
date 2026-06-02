@@ -884,7 +884,12 @@
         display: block;
         margin: 0;
     }
-
+.preloader-img{
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
+    border-radius: 50%; /* si la quieres circular */
+}
     .header-section{
         padding: 20px 0;       /* reduce espacio arriba/abajo */
     }
@@ -901,12 +906,7 @@
 <body>
     <div id="preloader">
         <div class="cover-logo">
-            <div class="circle"></div>
-            <span class="letter-s">B</span>
-            <span class="ampersand">&</span>
-            <span class="letter-a">J</span>
-            <div class="name-top">BRYAN</div>
-            <div class="name-bottom">JULISSA</div>
+           <img src="logo.png" alt="Logo boda" class="preloader-img">
         </div>
         <button id="openInvitation" class="btn-portada">
             ABRIR INVITACIÓN
